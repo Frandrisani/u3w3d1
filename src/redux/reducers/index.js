@@ -1,32 +1,27 @@
 const initialState = {
-  annunci: {
-    content: [],
+  favourite: {
+    list: [],
   },
 };
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TO_CART":
+    case "ADD_TO_FAVOURITE":
       return {
         ...state,
-        cart: {
-          ...state.cart,
-          // copio anche il contenuto di cart, perchè magari in un futuro vi aggiungerò proprietà!
-          // 2 modi per aggiungere un elemento ad un array senza usare push (che è vietato)
-          // content: state.cart.content.concat(action.payload) // 1)
-          content: [...state.cart.content, action.payload], // 2)
+        favourite: {
+          ...state.favourite,
+          list: [...state.favourite.list, action.payload],
         },
       };
-
-    case "DELETE_FROM_CART":
+    case "REMOVE_FROM_FAVOURITE":
       return {
         ...state,
-        cart: {
-          ...state.cart,
-          content: state.cart.content.filter((book, i) => i !== action.payload),
+        favourite: {
+          ...state.favourite,
+          list: state.favourite.list.filter((fav) => fav !== action.payload),
         },
       };
-
     default:
       return state;
   }
